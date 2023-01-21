@@ -18,7 +18,7 @@ cert_path = ".ursa/gateway/admin_cert.pem"
 key_path = ".ursa/gateway/admin_key.pem"
 
 [indexer]
-cid_url = "http://0.0.0.0:3000/cid"
+cid_url = "https://dev.cid.contact/"
 
 [cache]
 max_size = 200000000 # 200mb
