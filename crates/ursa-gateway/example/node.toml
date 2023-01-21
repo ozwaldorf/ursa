@@ -14,8 +14,6 @@ cache_control_max_size = 1000000000 # 1GB
 [admin_server]
 port = 5001
 addr = "0.0.0.0"
-cert_path = ".ursa/gateway/admin_cert.pem"
-key_path = ".ursa/gateway/admin_key.pem"
 
 [indexer]
 cid_url = "https://cid.contact/cid"

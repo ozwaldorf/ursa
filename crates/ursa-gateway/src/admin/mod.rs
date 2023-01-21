@@ -35,17 +35,9 @@ pub async fn start<Cache: AdminCache>(
             AdminConfig {
                 addr,
                 port,
-                cert_path,
-                key_path,
             },
         ..
     } = &(*config_reader.read().await);
-
-    let rustls_config = RustlsConfig::from_pem_file(&cert_path, &key_path)
-        .await
-        .with_context(|| {
-            format!("Failed to init tls from: cert: {cert_path:?}: path:{key_path:?}")
-        })?;
 
     let addr = SocketAddr::from((
         addr.parse::<Ipv4Addr>()
@@ -64,7 +56,7 @@ pub async fn start<Cache: AdminCache>(
     let handle = Handle::new();
     spawn(graceful_shutdown(handle.clone(), shutdown_rx));
 
-    axum_server::bind_rustls(addr, rustls_config)
+    axum_server::bind(addr)
         .handle(handle)
         .serve(app.into_make_service())
         .await
