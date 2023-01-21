@@ -11,7 +11,7 @@ use axum::{
     routing::{get, post},
     Router,
 };
-use axum_server::{tls_rustls::RustlsConfig, Handle};
+use axum_server::Handle;
 use route::api::v1::{get::get_config_handler, post::purge_cache_handler};
 use tokio::{
     select, spawn,
@@ -31,11 +31,7 @@ pub async fn start<Cache: AdminCache>(
 ) -> Result<()> {
     let config_reader = Arc::clone(&config);
     let GatewayConfig {
-        admin_server:
-            AdminConfig {
-                addr,
-                port,
-            },
+        admin_server: AdminConfig { addr, port },
         ..
     } = &(*config_reader.read().await);
 
